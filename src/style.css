@@ -1,0 +1,281 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #aa7f8d;
+}
+
+.container {
+  min-height: 70vh;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+h1 { margin-bottom: 16px; }
+
+img {
+  max-width: 300px;
+  width: 80%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 14px 22px;
+  font-size: 16px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#yesBtn { background: #ff4d6d; color: #fff; }
+#noBtn { background: #ccc; }
+
+.big-1 { transform: scale(1.4); }
+.big-2 { transform: scale(1.9); }
+.big-3 { transform: scale(2.6); }
+.big-4 { transform: scale(3.2); }
+.big-5 { transform: scale(3.8); }
+.big-6 { transform: scale(4.5); }
+
+.hidden { display: none; }
+
+/* Video wrapper */
+#videoWrapper {
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 16/9;
+  background: #000;
+  position: relative;
+  margin-top: 20px;
+}
+
+#valVideo {
+  width: 100%;
+  max-width: 560px;      
+  height: auto;           
+  max-height: 60vh;       
+  border-radius: 12px;
+  background: #000;
+  object-fit: cover;      
+}
+
+/* mobile tweaks */
+@media (max-width: 480px) {
+  #valVideo {
+    max-width: 90%;
+    max-height: 50vh;     
+  }
+}
+
+/* ===== LOADER CSS (your original version) ===== */
+.loader {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  gap: 1rem;
+  height: 67px;
+  width: 200px;;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+
+.loader .container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  position: relative;
+  align-items: center;
+}
+
+.loader .carousel {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  transform-origin: center;
+  animation-delay: 2.3s;
+}
+
+.loader .container:nth-child(3) {
+  justify-content: flex-start;
+  justify-items: flex-start;
+  animation: scroll-up 4s infinite ease-in-out;
+  animation-delay: 3s;
+}
+
+.loader .container:nth-child(2) {
+  justify-content: flex-end;
+  justify-items: flex-end;
+  animation: scroll-down 4s infinite ease-in-out;
+  animation-delay: 3s;
+}
+
+.loader .container:nth-child(1) {
+  justify-content: flex-end;
+  justify-items: flex-end;
+  animation: scroll-down 3s infinite ease-in-out;
+  animation-delay: 3s;
+}
+
+.loader .love {
+  background: black;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  left: 8px;
+  margin: 0.8rem 4px;
+  transform: rotate(45deg);
+  animation-delay: 2s;
+}
+
+.loader .love::before,
+.loader .love::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: darkred;
+}
+
+.loader .love::before {
+  left: -16px;
+}
+
+.loader .love::after {
+  top: -16px;
+}
+
+.loader .death {
+  display: flex;
+  width: 100%;
+  height: 55px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  animation: rotation 3s infinite ease-in-out;
+  animation-delay: 1s;
+}
+
+.loader .death:after {
+  content: "";
+  height: 63px;
+  position: absolute;
+  border-left: 12px solid black;
+  transform: rotate(45deg);
+  border-radius: 8px;
+  top: -4px;
+}
+
+.loader .death:before {
+  content: "";
+  height: 60px;
+  position: absolute;
+  border-left: 12px solid darkred;
+  transform: rotate(-45deg);
+}
+
+.loader:hover {
+  animation: none;
+}
+
+.loader .robots {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  justify-content: space-between;
+  background-color: black;
+  border-radius: 0 8px 8px;
+  padding: 5px;
+  animation-delay: 5s;
+}
+
+.loader .robots::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  top: 0;
+  left: 0;
+  background-color: darkred;
+  border-radius: 50%;
+  animation-delay: 2s;
+  animation: blink 0.5s 2 forwards;
+}
+
+.loader .robots::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  top: 0;
+  left: 0;
+  background-color: darkred;
+  border-radius: 50%;
+  animation-delay: 2s;
+  animation: blink 0.5s 2 forwards;
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+    filter: blur(0);
+  }
+  30% {
+    transform: translateY(-150%);
+    filter: blur(10px);
+  }
+  60% {
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(0);
+    filter: blur(0);
+  }
+  30% {
+    transform: translateY(150%);
+    filter: blur(10px);
+  }
+  60% {
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@keyframes rotation {
+  20%, 100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes blink {
+  0% { height: 0; }
+  20% { height: 12px; }
+  100% { height: 12px; }
+}

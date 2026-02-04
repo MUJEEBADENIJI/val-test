@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will you be my Val?</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Loader -->
+  
+ <div class="loader">
+  <div class="container">
+    <div class="carousel">
+      <div class="love"></div>
+      <div class="love"></div>
+      <div class="love"></div>
+      <div class="love"></div>
+      <div class="love"></div>
+      <div class="love"></div>
+      <div class="love"></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="carousel">
+      <div class="death"></div>
+      <div class="death"></div>
+      <div class="death"></div>
+      <div class="death"></div>
+      <div class="death"></div>
+      <div class="death"></div>
+      <div class="death"></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="carousel">
+      <div class="robots"></div>
+      <div class="robots"></div>
+      <div class="robots"></div>
+      <div class="robots"></div>
+      <div class="robots"></div>
+      <div class="robots"></div>
+      <div class="robots"></div>
+    </div>
+  </div>
+</div>
+  
+
+  <!-- Step 1: question -->
+  <div class="container hidden" id="questionContainer">
+    
+    <img id="val-img" alt="val image">
+    <h1>Will you be my Val?</h1>
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+  </div>
+
+  <!-- Step 2: video -->
+  <div class="container hidden" id="videoContainer">
+    <video id="valVideo" controls autoplay></video>
+  </div>
+
+  <script src="contentful.js"></script>
+  <script src="script.js"></script>
+
+  
+</body>
+</html>

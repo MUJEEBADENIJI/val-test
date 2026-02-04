@@ -22,7 +22,8 @@
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     text-align: center;
-    width: 320px;
+    width: 340px;
+    height: 80%;
   }
 
   h1 {
@@ -31,14 +32,55 @@
     color: #333;
   }
 
-  select, input {
+  select {
     width: 100%;
     padding: 10px 14px;
-    margin: 10px 0;
+    margin-bottom: 20px;
     border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 16px;
   }
+
+  .heart-input {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-right: 4;
+  }
+
+ .heart-slot {
+  width: 30px;
+  height: 30px;
+  background:#db7184 ;
+  aspect-ratio: 1;
+  clip-path: 
+    shape(
+      from 50% 91%,
+      line to 90% 50%,
+      arc to 50% 9%  of 1%,
+      arc to 10% 50% of 1%
+    );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #333;
+  position: relative;
+  transition: 0.2s;
+  
+}
+  .heart-slot::before {
+    content: "❤";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #3a3939;
+    opacity: 0.2;
+    font-size: 20px;
+  }
+
+  .heart-slot.filled::before { opacity: 0; }
 
   button {
     width: 100%;
@@ -49,7 +91,6 @@
     color: #fff;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 10px;
   }
 
   button:hover { background: #e04362; }
@@ -62,47 +103,79 @@
 </style>
 </head>
 <body>
-  <div class="passcode-container">
-    <h1>Enter Passcode</h1>
-    <select id="codeType">
-      <option value="dob">My Date of Birth</option>
-      <option value="anniversary">Our Anniversary</option>
-      <option value="wedding">Wedding Date</option>
-    </select>
-    <input type="password" id="passcodeInput" placeholder="Enter passcode" />
-    <button id="submitBtn">Submit</button>
-    <div class="error" id="errorMsg"></div>
+
+<div class="passcode-container">
+  <h1>Enter Passcode</h1>
+  <select id="codeType">
+    <option value="dob">My Date of Birth</option>
+    <option value="anniversary">Our Anniversary</option>
+    <option value="wedding">Wedding Date</option>
+  </select>
+
+  <div class="heart-input" id="heartInput">
+    <div class="heart-slot"></div>
+    <div class="heart-slot"></div>
+    <div class="heart-slot"></div>
+    <div class="heart-slot"></div>
+    <div class="heart-slot"></div>
+    <div class="heart-slot"></div>
+    <div class="heart-slot"></div>
+    <div class="heart-slot"></div>
   </div>
+
+  <button id="submitBtn">Submit</button>
+  <div class="error" id="errorMsg"></div>
+</div>
 
 <script>
   const codes = {
-    dob: "04122004",          // replace with actual code
-    anniversary: "12052020", // replace with actual code
-    wedding: "15072021"      // replace with actual code
+    dob: "04122004",
+    anniversary: "09012023",
+    wedding: "25072030"
   };
 
   const select = document.getElementById("codeType");
-  const input = document.getElementById("passcodeInput");
+  const heartSlots = Array.from(document.querySelectorAll(".heart-slot"));
   const submitBtn = document.getElementById("submitBtn");
   const errorMsg = document.getElementById("errorMsg");
+  let currentIndex = 0;
+  let enteredCode = "";
+
+  // handle keypress for hearts
+  document.addEventListener("keydown", e => {
+    if(e.key >= "0" && e.key <= "9") {
+      if(currentIndex < heartSlots.length){
+        heartSlots[currentIndex].textContent = e.key;
+        heartSlots[currentIndex].classList.add("filled");
+        enteredCode += e.key;
+        currentIndex++;
+      }
+    }
+    else if(e.key === "Backspace") {
+      if(currentIndex > 0){
+        currentIndex--;
+        heartSlots[currentIndex].textContent = "";
+        heartSlots[currentIndex].classList.remove("filled");
+        enteredCode = enteredCode.slice(0,-1);
+      }
+    }
+    else if(e.key === "Enter") submitBtn.click();
+  });
 
   submitBtn.addEventListener("click", () => {
     const selectedType = select.value;
-    const enteredCode = input.value.trim();
-
-    if (codes[selectedType] === enteredCode) {
+    if(codes[selectedType] === enteredCode) {
       errorMsg.textContent = "";
-      // redirect to val page
-      window.location.href = "index.html"; // change this to your actual val page
+      window.location.href = "index.html"; // val page
     } else {
       errorMsg.textContent = "Incorrect passcode. Try again!";
+      // reset hearts
+      heartSlots.forEach(s => { s.textContent=""; s.classList.remove("filled"); });
+      currentIndex = 0;
+      enteredCode = "";
     }
   });
-
-  // allow pressing enter to submit
-  input.addEventListener("keydown", (e) => {
-    if(e.key === "Enter") submitBtn.click();
-  });
 </script>
+
 </body>
 </html>

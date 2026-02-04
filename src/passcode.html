@@ -4,17 +4,105 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Enter Passcode</title>
-<link rel="stylesheet" href="passcode.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #fff0f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .passcode-container {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    text-align: center;
+    width: 320px;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+  }
+
+  select, input {
+    width: 100%;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4d6d;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  button:hover { background: #e04362; }
+
+  .error {
+    color: #ff4d6d;
+    margin-top: 8px;
+    min-height: 20px;
+  }
+</style>
 </head>
 <body>
+  <div class="passcode-container">
+    <h1>Enter Passcode</h1>
+    <select id="codeType">
+      <option value="dob">My Date of Birth</option>
+      <option value="anniversary">Our Anniversary</option>
+      <option value="wedding">Wedding Date</option>
+    </select>
+    <input type="password" id="passcodeInput" placeholder="Enter passcode" />
+    <button id="submitBtn">Submit</button>
+    <div class="error" id="errorMsg"></div>
+  </div>
 
-<div class="passcode-screen" id="passcodeScreen">
-  <h2>enter passcode 💌</h2>
-  <input type="password" id="passcodeInput" placeholder="****" />
-  <button id="passcodeBtn">unlock</button>
-  <p id="passcodeError" class="hidden">wrong code 😭</p>
-</div>
+<script>
+  const codes = {
+    dob: "04122004",          // replace with actual code
+    anniversary: "12052020", // replace with actual code
+    wedding: "15072021"      // replace with actual code
+  };
 
-<script src="passcode.js"></script>
+  const select = document.getElementById("codeType");
+  const input = document.getElementById("passcodeInput");
+  const submitBtn = document.getElementById("submitBtn");
+  const errorMsg = document.getElementById("errorMsg");
+
+  submitBtn.addEventListener("click", () => {
+    const selectedType = select.value;
+    const enteredCode = input.value.trim();
+
+    if (codes[selectedType] === enteredCode) {
+      errorMsg.textContent = "";
+      // redirect to val page
+      window.location.href = "index.html"; // change this to your actual val page
+    } else {
+      errorMsg.textContent = "Incorrect passcode. Try again!";
+    }
+  });
+
+  // allow pressing enter to submit
+  input.addEventListener("keydown", (e) => {
+    if(e.key === "Enter") submitBtn.click();
+  });
+</script>
 </body>
 </html>
